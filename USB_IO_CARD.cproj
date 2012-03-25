@@ -5,7 +5,7 @@
     <ProjectVersion>5.1</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8</ToolchainName>
     <ProjectGuid>{404d5276-5c48-44b1-a266-17ed2ee53157}</ProjectGuid>
-    <avrdevice>ATmega48A</avrdevice>
+    <avrdevice>ATmega48</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
     <Language>C</Language>
@@ -17,6 +17,33 @@
     <RootNamespace>USB_IO_CARD</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <AsfVersion>2.11.1</AsfVersion>
+    <avrtool>com.atmel.avrdbg.tool.jtagicemk3</avrtool>
+    <avrtoolinterface>debugWIRE</avrtoolinterface>
+    <com_atmel_avrdbg_tool_jtagicemk3>
+      <ToolType>com.atmel.avrdbg.tool.jtagicemk3</ToolType>
+      <ToolName>JTAGICE3</ToolName>
+      <ToolNumber>J30200005910</ToolNumber>
+      <Channel>
+        <host>127.0.0.1</host>
+        <port>49748</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions>
+        <InterfaceName>debugWIRE</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>1000000</JtagDbgClock>
+          <JtagProgClock>1000000</JtagProgClock>
+          <IspClock>125000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+          <DebugWireClockDiv>0</DebugWireClockDiv>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_jtagicemk3>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -39,26 +66,156 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-        <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
-        <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
-        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-        <avrgcc.assembler.debugging.DebugLevel>Default (-g2)</avrgcc.assembler.debugging.DebugLevel>
-        <avrgcc.linker.libraries.Libraries>
-          <ListValues>
-            <Value>m</Value>
-          </ListValues>
-        </avrgcc.linker.libraries.Libraries>
-      </AvrGcc>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../src/lib</Value>
+      <Value>../src/driver</Value>
+      <Value>../src/api</Value>
+      <Value>../src</Value>
+      <Value>../src/app</Value>
+      <Value>../../API</Value>
+      <Value>../../LIB</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>m</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+  <avrgcc.linker.optimization.GarbageCollectUnusedSections>True</avrgcc.linker.optimization.GarbageCollectUnusedSections>
+  <avrgcc.assembler.debugging.DebugLevel>Default (-g2)</avrgcc.assembler.debugging.DebugLevel>
+</AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="USB_IO_CARD.c">
+    <Compile Include="src\app\init_drivers\config\driver_config_usart.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\app\init_drivers\config\driver_config_gpio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\init_drivers.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\public\init_drivers.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\gpio\gpio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\gpio\public\gpio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\gpio\spy\spy_gpio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\gpio\spy\spy_gpio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\gpio\test_gpio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\usart\public\usart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\usart\spy\spy_usart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\usart\spy_usart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\usart\usart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\usart\utest_usart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_api\ioapi\port\ioapi_avr8_port.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_api\ioapi\port\utest_ioapi_avr8_port.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_api\ioapi\public\ioapi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_api\ioapi\spy\spy_ioapi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_api\ioapi\spy\spy_ioapi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\errorh\errorh.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\errorh\public\errorh.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\str\public\str.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\str\str.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\str\test\test_str.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\utest\private\utest_asserts.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\utest\private\utest_template.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\utest\public\utest.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\utest\utest.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\framework.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src" />
+    <Folder Include="src\app\init_drivers" />
+    <Folder Include="src\app\init_drivers\config" />
+    <Folder Include="src\app\init_drivers\public" />
+    <Folder Include="src\driver" />
+    <Folder Include="src\driver\gpio" />
+    <Folder Include="src\driver\gpio\spy" />
+    <Folder Include="src\driver\gpio\public" />
+    <Folder Include="src\driver\usart" />
+    <Folder Include="src\driver\usart\public" />
+    <Folder Include="src\driver\usart\spy" />
+    <Folder Include="src\ext_api\" />
+    <Folder Include="src\ext_api\ioapi\" />
+    <Folder Include="src\ext_api\ioapi\port" />
+    <Folder Include="src\ext_api\ioapi\public\" />
+    <Folder Include="src\ext_api\ioapi\spy\" />
+    <Folder Include="src\ext_lib\" />
+    <Folder Include="src\ext_lib\errorh\" />
+    <Folder Include="src\ext_lib\errorh\public\" />
+    <Folder Include="src\ext_lib\str\" />
+    <Folder Include="src\ext_lib\str\public\" />
+    <Folder Include="src\ext_lib\str\test\" />
+    <Folder Include="src\ext_lib\utest\" />
+    <Folder Include="src\ext_lib\utest\private\" />
+    <Folder Include="src\ext_lib\utest\public\" />
+    <Folder Include="src\app" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
