@@ -37,21 +37,34 @@ TEST_TEAR_DOWN(gpio) {
 
 }
 
-/*! @brief TEMPLATE.
- *	@param Group name
- *	@param Test name */
 TEST(gpio, init) {
-	gpio_init_pin(SAFE_PIN, GPIO_OUTPUT, GPIO_OUTPUT);
+	gpio_init_pin(SAFE_PIN, GPIO_OUTPUT, GPIO_HIGH);
 	
-	// Check DDRX register. Should be high.
-	TEST_ASSERT(is_bit_set(SAFE_PIN_DDR, SAFE_PIN_IDX));
-	TEST_ASSERT(0);
-	TEST_ASSERT_EQUAL_INT32(-10, 20);
-	TEST_ASSERT_EQUAL_STRING("Joojoo", "jooaaapaajooo");
+	TEST_ASSERT( is_bit_set(SAFE_PIN_DDR, SAFE_PIN_IDX));
+	TEST_ASSERT( is_bit_set(SAFE_PIN_PORT, SAFE_PIN_IDX));
+	
+	gpio_init_pin(SAFE_PIN, GPIO_INPUT, NULL);
+
+	TEST_ASSERT( !is_bit_set(SAFE_PIN_DDR, SAFE_PIN_IDX));
+	TEST_ASSERT( !is_bit_set(SAFE_PIN_PORT, SAFE_PIN_IDX));
+}
+
+TEST(gpio, set_high) {
+	gpio_set_high(SAFE_PIN);
+	
+	TEST_ASSERT(is_bit_set(SAFE_PIN_PORT, SAFE_PIN_IDX));
+}
+
+TEST(gpio, set_low) {
+	gpio_set_low(SAFE_PIN);
+	
+	TEST_ASSERT( !is_bit_set(SAFE_PIN_PORT, SAFE_PIN_IDX));
 }
 
 /*	@brief Set up all runnable tests from this module. 
  *	@param group name.*/
 TEST_GROUP_RUNNER(gpio) {
 	RUN_TEST_CASE(gpio, init);
+	RUN_TEST_CASE(gpio, set_high);
+	RUN_TEST_CASE(gpio, set_low);
 }
