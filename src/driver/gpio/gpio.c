@@ -90,3 +90,37 @@ statusc_t gpio_get_input_body( uint8_t pin_number ) {
 }
 statusc_t (*gpio_get_input)( uint8_t pin_number) = &gpio_get_input_body;
 
+static uint16_t pin_used_as_adc_flags = 0;
+void gpio_init_pin_as_adc( uint8_t pin_number)
+{
+	ASSERT( ( pin_number <= ADC_LAST_PIN &&
+			  pin_number >= ADC_FIRST_PIN ) );
+
+	ADCSRA = ADC_PRESCALE;
+	ADMUX = ADC_REF_SOURCE;
+	ADMUX |= (1<<ADLAR);	// Left align result registers.
+	ADCSRA |= (1<<ADEN);	// Enable.
+	ADCSRA |= (1<<ADSC);	// Start conversion.
+	
+	gpio_init_pin(pin_number, GPIO_INPUT, NULL);
+	
+	uint8_t current_adc = pin_number - ADC_FIRST_PIN;
+	
+	ASSERT( ( current_adc >= 0 &&
+			  current_adc <= ADC_LAST_PIN-ADC_FIRST_PIN ) );
+			  
+	pin_used_as_adc_flags |= (1<<current_adc);
+}
+
+statusc_t gpio_is_pin_adc( uint8_t pin_number)
+{
+	uint16_t pin_mask = 1<<(pin_number-ADC_FIRST_PIN);
+	if((pin_used_as_adc_flags & pin_mask) != 0)
+		return SC_TRUE;
+	return SC_FALSE;
+}
+
+uint8_t get_adc_value( uint8_t pin_number )
+{
+	return ADCH;
+}
