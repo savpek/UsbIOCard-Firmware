@@ -1,11 +1,3 @@
-/*
- * gpio.h
- *
- * Created: 22.3.2012 20:45:32
- *  Author: savpek
- */
-
-
 #ifndef GPIO_H_
 #define GPIO_H_
 
@@ -23,7 +15,7 @@ extern void (*gpio_set_high)( uint8_t pin_number);
 
 extern void (*gpio_set_low)( uint8_t pin_number);
 
-extern errorc_t (*gpio_get_input)( uint8_t pin_number);
+extern statusc_t (*gpio_get_input)( uint8_t pin_number);
 
 extern void gpio_init_pin(uint8_t pin_number, gpio_t direction, gpio_t value);
 

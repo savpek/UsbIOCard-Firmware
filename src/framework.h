@@ -25,7 +25,7 @@
 #define PSTR(s) ((const __ATTR_PROGMEM__ char *)(s))
 
 /* Error handlers */
-#include "./errorh/public/errorh.h"
+#include "statusc/public/statusc.h"
 
 /* Print/Read */
 

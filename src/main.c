@@ -14,16 +14,21 @@
 #include "gpio/public/gpio.h"
 
 void utest_wrapper() {
+	init_drivers();
+
+//	RUN_TEST_GROUP(str);
+
 	RUN_TEST_GROUP(gpio);
+//	RUN_TEST_GROUP(ioapi);
+//	RUN_TEST_GROUP(utest);
 }
 
 int main(void) {
-	init_drivers();
 	utest_main(&utest_wrapper);
-	
+
 	while(1)
     {
-//	usart_send_char('a');
+	//usart_send_char('a');
     }
-	
+
 }

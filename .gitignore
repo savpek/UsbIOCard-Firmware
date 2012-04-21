@@ -1,0 +1,6 @@
+src/ext*
+src/ext*
+/Debug/
+*.tmp
+
+

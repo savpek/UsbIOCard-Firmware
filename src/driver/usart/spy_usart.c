@@ -15,7 +15,7 @@ char rx_buffer[RX_SIZE] = {0};
 uint8_t rx_idx;
 
 void spy_usart_send_char( char a ) { 
-	ERRORH_ASSERT(tx_idx < TX_SIZE);
+	ASSERT(tx_idx < TX_SIZE);
 	
 	tx_tracker[tx_idx] = a;
 	tx_tracker[tx_idx+1] = 0;

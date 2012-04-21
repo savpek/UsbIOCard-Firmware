@@ -5,7 +5,7 @@
     <ProjectVersion>5.1</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8</ToolchainName>
     <ProjectGuid>{404d5276-5c48-44b1-a266-17ed2ee53157}</ProjectGuid>
-    <avrdevice>ATmega48</avrdevice>
+    <avrdevice>ATmega168PA</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
     <Language>C</Language>
@@ -25,7 +25,7 @@
       <ToolNumber>J30200005910</ToolNumber>
       <Channel>
         <host>127.0.0.1</host>
-        <port>49748</port>
+        <port>59336</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
@@ -33,14 +33,13 @@
         <InterfaceProperties>
           <JtagDbgClock>1000000</JtagDbgClock>
           <JtagProgClock>1000000</JtagProgClock>
-          <IspClock>125000</IspClock>
+          <IspClock>150000</IspClock>
           <JtagInChain>false</JtagInChain>
           <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
           <JtagDevicesBefore>0</JtagDevicesBefore>
           <JtagDevicesAfter>0</JtagDevicesAfter>
           <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
           <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
-          <DebugWireClockDiv>0</DebugWireClockDiv>
         </InterfaceProperties>
       </ToolOptions>
     </com_atmel_avrdbg_tool_jtagicemk3>
@@ -66,32 +65,33 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>../src/lib</Value>
-      <Value>../src/driver</Value>
-      <Value>../src/api</Value>
-      <Value>../src</Value>
-      <Value>../src/app</Value>
-      <Value>../../API</Value>
-      <Value>../../LIB</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
-  <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-  <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
-  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-  <avrgcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>m</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.Libraries>
-  <avrgcc.linker.optimization.GarbageCollectUnusedSections>True</avrgcc.linker.optimization.GarbageCollectUnusedSections>
-  <avrgcc.assembler.debugging.DebugLevel>Default (-g2)</avrgcc.assembler.debugging.DebugLevel>
-</AvrGcc>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>../src/lib</Value>
+            <Value>../src/driver</Value>
+            <Value>../src/api</Value>
+            <Value>../src</Value>
+            <Value>../src/app</Value>
+            <Value>../../API</Value>
+            <Value>../../LIB</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>m</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.linker.optimization.GarbageCollectUnusedSections>True</avrgcc.linker.optimization.GarbageCollectUnusedSections>
+        <avrgcc.assembler.debugging.DebugLevel>Default (-g2)</avrgcc.assembler.debugging.DebugLevel>
+      </AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
@@ -105,6 +105,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\app\init_drivers\public\init_drivers.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\io_card_main\io_card_main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\io_card_main\public\io_card_main.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\config.h">
@@ -155,10 +161,7 @@
     <Compile Include="src\ext_api\ioapi\spy\spy_ioapi.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\ext_lib\errorh\errorh.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\ext_lib\errorh\public\errorh.h">
+    <Compile Include="src\ext_lib\statusc\public\statusc.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ext_lib\str\public\str.h">
@@ -179,10 +182,22 @@
     <Compile Include="src\ext_lib\utest\public\utest.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\ext_lib\utest\utest_str\public\utest_str.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\utest\utest_str\utest_str.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ext_lib\utest\test\test_utest.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\ext_lib\utest\utest.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\framework.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lib\cmd_parser\public\cmd_parser.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\main.c">
@@ -191,9 +206,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src" />
+    <Folder Include="src\app\io_card_main\public" />
     <Folder Include="src\app\init_drivers" />
     <Folder Include="src\app\init_drivers\config" />
     <Folder Include="src\app\init_drivers\public" />
+    <Folder Include="src\app\io_card_main" />
     <Folder Include="src\driver" />
     <Folder Include="src\driver\gpio" />
     <Folder Include="src\driver\gpio\spy" />
@@ -207,15 +224,120 @@
     <Folder Include="src\ext_api\ioapi\public\" />
     <Folder Include="src\ext_api\ioapi\spy\" />
     <Folder Include="src\ext_lib\" />
-    <Folder Include="src\ext_lib\errorh\" />
-    <Folder Include="src\ext_lib\errorh\public\" />
+    <Folder Include="src\ext_lib\statusc" />
+    <Folder Include="src\ext_lib\statusc\public" />
     <Folder Include="src\ext_lib\str\" />
+    <Folder Include="src\ext_lib\str\.git\" />
+    <Folder Include="src\ext_lib\str\.git\hooks\" />
+    <Folder Include="src\ext_lib\str\.git\info\" />
+    <Folder Include="src\ext_lib\str\.git\logs\" />
+    <Folder Include="src\ext_lib\str\.git\logs\refs\" />
+    <Folder Include="src\ext_lib\str\.git\logs\refs\heads\" />
+    <Folder Include="src\ext_lib\str\.git\objects\" />
+    <Folder Include="src\ext_lib\str\.git\objects\00\" />
+    <Folder Include="src\ext_lib\str\.git\objects\60\" />
+    <Folder Include="src\ext_lib\str\.git\objects\63\" />
+    <Folder Include="src\ext_lib\str\.git\objects\77\" />
+    <Folder Include="src\ext_lib\str\.git\objects\7a\" />
+    <Folder Include="src\ext_lib\str\.git\objects\b7\" />
+    <Folder Include="src\ext_lib\str\.git\objects\e4\" />
+    <Folder Include="src\ext_lib\str\.git\objects\info\" />
+    <Folder Include="src\ext_lib\str\.git\objects\pack\" />
+    <Folder Include="src\ext_lib\str\.git\refs\" />
+    <Folder Include="src\ext_lib\str\.git\refs\heads\" />
+    <Folder Include="src\ext_lib\str\.git\refs\tags\" />
     <Folder Include="src\ext_lib\str\public\" />
     <Folder Include="src\ext_lib\str\test\" />
     <Folder Include="src\ext_lib\utest\" />
+    <Folder Include="src\ext_lib\utest\utest_str" />
+    <Folder Include="src\ext_lib\utest\utest_str\public" />
+    <Folder Include="src\ext_lib\utest\test" />
     <Folder Include="src\ext_lib\utest\private\" />
     <Folder Include="src\ext_lib\utest\public\" />
     <Folder Include="src\app" />
+    <Folder Include="src\lib" />
+    <Folder Include="src\lib\cmd_parser" />
+    <Folder Include="src\lib\cmd_parser\public" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\ext_lib\str\.git\COMMIT_EDITMSG">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\config">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\description">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\HEAD">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\applypatch-msg.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\commit-msg.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\post-commit.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\post-receive.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\post-update.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\pre-applypatch.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\pre-commit.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\pre-rebase.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\prepare-commit-msg.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\hooks\update.sample">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\index">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\info\exclude">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\logs\HEAD">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\logs\refs\heads\master">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\objects\00\f3e784b31ccb1348ca4407929b714fea1ec9e8">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\objects\60\2f3ff1adc8809d6100c2bd2e93bc2a1e09de28">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\objects\63\d1d31a5206514949efbd108bfeb8a281288d48">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\objects\77\622ddb27107264814c36f353ed763501f338cb">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\objects\7a\d69d3c0b9bb3137d65d6c99375281f2b8d45c2">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\objects\b7\d5fd888614fa2eeb9a251f5ce3480b9373e375">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\objects\e4\04fe555e5d8a3e380b627f28858fee5c75fe01">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ext_lib\str\.git\refs\heads\master">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

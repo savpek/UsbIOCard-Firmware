@@ -14,14 +14,14 @@ static get_pin_mask(uint8_t pin_number) {
 }
 
 /* Addresses are located as following sequence:
-	PINA
-	DDRA
-	PORTA
-	PINB
+	PINA	IO_OFFSET + 0x00
+	DDRA	IO_OFFSET + 0x01
+	PORTA	IO_OFFSET + 0x02
+	PINB	IO_OFFSET + 0x03
 	DDRB ... */
 static uint8_t get_pin_addr(uint8_t pin_number) {
 	/* If pin is 10, divide it by 8 gives
-	   1, *3 it and you have 0x03 as address. */
+	   1, x3 it and you have 0x03 as address. */
 	return (pin_number/8)*3;
 }
 static uint8_t get_ddrx_addr(uint8_t pin_number) {
@@ -31,8 +31,8 @@ static uint8_t get_port_addr(uint8_t pin_number) {
 	return (pin_number/8)*3+2;
 }
 
-static uint8_t is_pin_high(pin_number) {
-	return ((_SFR_IO8 (get_pin_addr(pin_number)&get_pin_mask(pin_number))) != 0);
+static uint8_t is_pin_set(pin_number) {
+	return ((_SFR_IO8 (get_pin_addr(pin_number)&get_pin_mask(pin_number))) == 0);
 }
 
 static void set_ddr_bit_low(uint8_t pin_number) {
@@ -70,7 +70,7 @@ void gpio_init_pin(uint8_t pin_number, gpio_t direction, gpio_t value) {
 	else {
 		set_ddr_bit_low( pin_number);
 	}
-	
+
 	if(value == GPIO_HIGH ||
 	   value == GPIO_PULL_UP) {
 		set_port_bit_high( pin_number);
@@ -80,13 +80,13 @@ void gpio_init_pin(uint8_t pin_number, gpio_t direction, gpio_t value) {
 	}
 }
 
-errorc_t gpio_get_input_body( uint8_t pin_number ) {
-	if(is_pin_high(pin_number)) {
-		return EC_HIGH;
+statusc_t gpio_get_input_body( uint8_t pin_number ) {
+	if( is_pin_set(pin_number)) {
+		return SC_HIGH;
 	}
 	else {
-		return EC_LOW;
+		return SC_LOW;
 	}
 }
-errorc_t (*gpio_get_input)( uint8_t pin_number) = &gpio_get_input_body;
+statusc_t (*gpio_get_input)( uint8_t pin_number) = &gpio_get_input_body;
 
