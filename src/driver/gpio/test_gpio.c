@@ -60,12 +60,22 @@ TEST(gpio_io_functions, input)
 	TEST_ASSERT( gpio_get_input(SAFE_PIN) == SC_HIGH);
 }
 
+TEST(gpio_io_functions, is_it_output)
+{
+	gpio_init_pin(SAFE_PIN, GPIO_OUTPUT, GPIO_HIGH);
+	TEST_ASSERT( gpio_is_it_output( SAFE_PIN) == SC_TRUE);
+	
+	gpio_init_pin(SAFE_PIN, GPIO_INPUT, GPIO_LOW);
+	TEST_ASSERT( gpio_is_it_output( SAFE_PIN) == SC_FALSE);
+}
+
 TEST_GROUP_RUNNER(gpio_io_functions)
 {
 	RUN_TEST_CASE(gpio_io_functions, init);
 	RUN_TEST_CASE(gpio_io_functions, set_high);
 	RUN_TEST_CASE(gpio_io_functions, set_low);
 	RUN_TEST_CASE(gpio_io_functions, input);
+	RUN_TEST_CASE(gpio_io_functions, is_it_output);
 }
 
 /* ADC GROUP */
@@ -81,8 +91,8 @@ TEST_TEAR_DOWN(gpio_adc)
 }
 
 #define FIRST_ADC_PIN 16
-#define SAFE_ADC_DDR DDRC
-#define SAFE_ADC_PIN_NUMBER 0
+#define FIRST_ADC_DDR DDRC
+#define FIRST_ADC_PIN_NUMBER 0
 TEST(gpio_adc, init_adc_registers) {
 	gpio_init_pin_as_adc( FIRST_ADC_PIN);
 
@@ -96,10 +106,10 @@ TEST(gpio_adc, init_adc_registers) {
 
 TEST(gpio_adc, io_set_correctly_as_input)
 {
-	SAFE_ADC_DDR |= (1<<SAFE_ADC_PIN_NUMBER); // Set DDRD to 1 to make sure it isn't set.
+	FIRST_ADC_DDR |= (1<<FIRST_ADC_PIN_NUMBER); // Set DDRD to 1 to make sure it isn't set.
 	gpio_init_pin_as_adc( FIRST_ADC_PIN);
 
-	TEST_ASSERT( !is_bit_set(SAFE_ADC_DDR, SAFE_ADC_PIN_NUMBER));
+	TEST_ASSERT( !is_bit_set(FIRST_ADC_DDR, FIRST_ADC_PIN_NUMBER));
 }
 
 TEST(gpio_adc, adc_used_flags_are_set_and_readed_correctly)

@@ -21,8 +21,10 @@ extern void gpio_init_pin(uint8_t pin_number, gpio_t direction, gpio_t value);
 
 extern void gpio_init_pin_as_adc( uint8_t pin_number);
 
-extern uint8_t get_adc_value( uint8_t pin_number);
-
 extern statusc_t gpio_is_pin_adc( uint8_t pin_number);
+
+extern uint8_t gpio_get_adc_value( uint8_t pin_number );
+
+extern statusc_t gpio_is_it_output( uint8_t pin_number);
 
 #endif /* GPIO_H_ */

@@ -32,7 +32,15 @@ static uint8_t get_port_addr(uint8_t pin_number) {
 }
 
 static uint8_t is_pin_set(pin_number) {
-	return ((_SFR_IO8 (get_pin_addr(pin_number)&get_pin_mask(pin_number))) == 0);
+	uint8_t bit_mask = get_pin_mask( pin_number);
+	uint8_t pin_addr_offset = get_pin_addr( pin_number);
+	return (_SFR_IO8 (pin_addr_offset) & bit_mask) != 0;
+}
+
+static uint8_t is_ddr_set(pin_number) {
+	uint8_t bit_mask = get_pin_mask( pin_number);
+	uint8_t pin_addr_offset = get_ddrx_addr( pin_number);
+	return (_SFR_IO8 (pin_addr_offset) & bit_mask) != 0;
 }
 
 static void set_ddr_bit_low(uint8_t pin_number) {
@@ -101,14 +109,14 @@ void gpio_init_pin_as_adc( uint8_t pin_number)
 	ADMUX |= (1<<ADLAR);	// Left align result registers.
 	ADCSRA |= (1<<ADEN);	// Enable.
 	ADCSRA |= (1<<ADSC);	// Start conversion.
-	
+
 	gpio_init_pin(pin_number, GPIO_INPUT, NULL);
-	
+
 	uint8_t current_adc = pin_number - ADC_FIRST_PIN;
-	
+
 	ASSERT( ( current_adc >= 0 &&
 			  current_adc <= ADC_LAST_PIN-ADC_FIRST_PIN ) );
-			  
+
 	pin_used_as_adc_flags |= (1<<current_adc);
 }
 
@@ -120,7 +128,15 @@ statusc_t gpio_is_pin_adc( uint8_t pin_number)
 	return SC_FALSE;
 }
 
-uint8_t get_adc_value( uint8_t pin_number )
+uint8_t gpio_get_adc_value( uint8_t pin_number )
 {
 	return ADCH;
+}
+
+statusc_t gpio_is_it_output( uint8_t pin_number)
+{
+	if( is_ddr_set( pin_number))
+		return SC_TRUE;
+	else
+		return SC_FALSE;
 }
