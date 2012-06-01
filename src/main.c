@@ -1,31 +1,33 @@
-/*
- * USB_IO_CARD.c
- *
- * Created: 21.3.2012 18:25:48
- *  Author: savpek
- */
-
-#include <avr/io.h>
-#include <stdio.h>
-#include "./usart/public/usart.h"
 #include "./init_drivers/public/init_drivers.h"
 
 #include "framework.h"
 #include "gpio/public/gpio.h"
+#include "app/io_card_main/public/io_card_main.h"
 
-void utest_wrapper() {
+void utest_group() 
+{
 //	RUN_TEST_GROUP(str);
-
-	RUN_TEST_GROUP(gpio_io_functions);
-	RUN_TEST_GROUP(gpio_adc);
+//	RUN_TEST_GROUP(gpio_io_functions);
+//	RUN_TEST_GROUP(gpio_adc);
 //	RUN_TEST_GROUP(ioapi);
 //	RUN_TEST_GROUP(utest);
+//	RUN_TEST_GROUP(print);
+	RUN_TEST_GROUP(read);
+}
+
+void hw_test_group() 
+{
 }
 
 int main(void) {
 	init_drivers();
-	utest_main(&utest_wrapper);
-	init_drivers(); // Return state, if changed.
+	utest_main(&utest_group);
+//	hwtest_main(&hw_test_group);
+	
+	init_drivers(); // Return to original state after tests.
+			//Driver tests may change these settings.
+
+    io_card_main_thread();
 
 	while(1)
     {

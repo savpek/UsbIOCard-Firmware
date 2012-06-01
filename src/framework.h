@@ -5,34 +5,46 @@
  *  Author: savpek
  */
 
+/* Common libraries */
+#include <avr/io.h>
+#include "config/io_config.h"
 
+/* Shared status codes and asserts. */
+#include "statusc/public/statusc.h"
+
+/* Unit testing framework. */
+#include "./utest/public/utest.h"
+
+/* Basic output stream */
+#include "usart/public/usart.h"
+
+/* Common string paring */
+#include "./str/public/str.h"
+
+/* SETTINGS ETC... */
 #ifndef FRAMEWORK_H_
 #define FRAMEWORK_H_
 
-#include <avr/io.h>
-#include "config/io_config.h"
-#include "config/misc_config.h"
-
-/* Unit-test framework settings */
+/* UTEST default output stream. */
 #define UTEST_OUTPUT_CHAR(a) usart_send_char(a)
-#define UTEST_VERBOSE 1
 
-#include "./utest/public/utest.h"
+/* STATUSC default output stream. */
+#define STATUSC_ASSERT_OUTPUT_CHAR(a) usart_send_char(a)
 
-/* Define common */
+/* Common defines. */
 #define NULL 0
 
 /* This makes string to be saved in program memory. 
  * Then it doesn't take ram. However, works only with optimization. */
 #define PSTR(s) ((const __ATTR_PROGMEM__ char *)(s))
 
-/* Shared status codes and asserts. */
-#include "statusc/public/statusc.h"
-
 /* Print/Read */
-
+#define PRINT_CHAR_STREAMF(a) usart_send_char(a)
 /* IO */
 
 /* Global config files */
+
+/* GPIO Access */
+#include "gpio/public/gpio.h"
 
 #endif /* FRAMEWORK_H_ */

@@ -8,20 +8,48 @@
 #include "framework.h"
 #include "./usart/spy/spy_usart.h"
 
-char tx_tracker[TX_SIZE] = {0};
-uint8_t tx_idx;
+char output_stream[TX_SIZE] = {0};
+uint8_t tx_idx = 0;
 
-char rx_buffer[RX_SIZE] = {0};
-uint8_t rx_idx;
+char* input_stream = NULL;
+uint8_t rx_idx = 0;
 
-void spy_usart_send_char( char a ) { 
+void spy_usart_send_char( char a ) {
 	ASSERT(tx_idx < TX_SIZE);
-	
-	tx_tracker[tx_idx] = a;
-	tx_tracker[tx_idx+1] = 0;
+
+	output_stream[tx_idx] = a;
+	output_stream[tx_idx+1] = 0;
+	tx_idx++;
 }
 
-void spy_usart_tx_read( char* get_this_string )
+char* spy_usart_get_output_buffer()
 {
-	get_this_string = tx_tracker;
+	return output_stream;
+}
+
+void spy_usart_reset_output_buffer()
+{
+	tx_idx = 0;
+	output_stream[0] = 0;
+}
+
+statusc_t spy_usart_try_read_char(char* a)
+{
+	if( input_stream != NULL ||
+		rx_idx > 15) // Safe limit.
+	{
+		*a = input_stream[rx_idx];
+		rx_idx++;
+		return SC_SUCCESS;
+	}
+	else
+	{
+		ASSERT( SC_FAILURE);
+	}
+}
+
+void spy_usart_put_to_receiver_stream(char* source)
+{
+	input_stream = source;
+	rx_idx = 0;
 }

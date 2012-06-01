@@ -1,7 +1,6 @@
 
-#include "./usart/public/usart.h"
-
 #include "framework.h"
+#include "usart/public/usart.h"
 
 static void set_baudrate( uint16_t baudrate) {
 	UBRR0H = (baudrate>>8);
@@ -23,3 +22,16 @@ void usart_send_char_body(char a) {
 	UDR0 = a;
 }
 void (*usart_send_char)(char a) = &usart_send_char_body;
+
+statusc_t usart_try_read_char_body( char* a) {
+	if(!(UCSR0A & (1<<RXC0)))
+	{
+		return SC_FAILURE;
+	}
+	else
+	{
+		*a = UDR0;
+		return SC_SUCCESS;
+	}	
+}
+statusc_t (*usart_try_read_char)( char* a) = &usart_try_read_char_body;
