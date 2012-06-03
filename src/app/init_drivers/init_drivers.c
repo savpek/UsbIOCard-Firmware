@@ -5,11 +5,10 @@
  *  Author: savpek
  */
 
-#include "./usart/public/usart.h"
-#include "./gpio/public/gpio.h"
 
-#include "./init_drivers/config/driver_config_usart.h"
-#include "init_drivers/config/driver_config_gpio.h"
+#include "framework.h"
+
+#include "app/init_drivers/config/driver_config_usart.h"
 
 void init_drivers( ) {
 	usart_init(USART_SET_THIS_BAUDRATE);
@@ -23,14 +22,4 @@ void init_drivers( ) {
     // INPUTS WITH GALVANIC ISOLATION
 	gpio_init_pin(PIN_5T0, GPIO_INPUT, GPIO_PULL_UP);
 	gpio_init_pin(PIN_5T1, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T2, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T3, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T4, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T5, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T6, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T7, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T8, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T9, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T10, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T11, GPIO_INPUT, GPIO_PULL_UP);
 }

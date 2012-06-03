@@ -6,7 +6,7 @@
 #define PB_OFFSET		8
 #define PC_OFFSET		16
 #define PD_OFFSET		24
-#define ADC_OFFSET      #ERROR NOT DEFINED      
+#define ADC_OFFSET      NOT DEFINED      
 
 // HIGH-V RELAY DRIVES
 #define PIN_2T0			PB_OFFSET+0
@@ -25,8 +25,8 @@
 #define PIN_5T7         PC_OFFSET+0
 #define PIN_5T8         PC_OFFSET+1
 #define PIN_5T9         PC_OFFSET+2
-#define PIN_5T11        PC_OFFSET+3
-#define PIN_5T12        PC_OFFSET+4
+#define PIN_5T10        PC_OFFSET+3
+#define PIN_5T11        PC_OFFSET+4
 
 // ADC INPUTS
 #define PIN_7T0_ADC0    ADC_OFFSET
