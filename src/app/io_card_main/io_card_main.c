@@ -62,9 +62,24 @@ static void try_get_pin_adc( char *read_buffer )
     //jogwheel_map_t pin = try_find_pin_from_list( io_adc_maps);
 }
 
+void try_get_pin_state_based_on_input( char * read_buffer, jogwheel_map_t pin ) 
+{
+    if( gpio_get_input(pin.pin_number) == SC_HIGH)
+        print_line("HIGH");
+    else
+        print_line("LOW");
+}
+
 static void try_read_pin( char *read_buffer ) 
 {
-    //jogwheel_map_t pin = try_find_pin_from_list( io_adc_maps);
+    jogwheel_map_t pin = try_find_pin_from_list( io_output_maps, read_buffer);
+    
+    if(pin.terminal_name != NULL)
+    {
+        try_get_pin_state_based_on_input( read_buffer, pin);
+    }
+    else
+        error_invalid_pin();
 }
 
 #define PIN_STATE_TOKEN_IDX 2
