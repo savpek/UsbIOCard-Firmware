@@ -1,10 +1,3 @@
-/*
- * framework.h
- *
- * Created: 21.3.2012 18:59:32
- *  Author: savpek
- */
-
 /* Common libraries */
 #include <avr/io.h>
 #include "config/io_config.h"

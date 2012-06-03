@@ -6,9 +6,9 @@
 
 void utest_group() 
 {
-	RUN_TEST_GROUP(str);
+//	RUN_TEST_GROUP(str);
 //	RUN_TEST_GROUP(gpio_io_functions);
-//	RUN_TEST_GROUP(gpio_adc);
+	RUN_TEST_GROUP(gpio_adc);
 //	RUN_TEST_GROUP(ioapi);
 //	RUN_TEST_GROUP(utest);
 //	RUN_TEST_GROUP(print);
@@ -22,16 +22,9 @@ void hw_test_group()
 int main(void) {
 	init_drivers();
 	utest_main(&utest_group);
-//	hwtest_main(&hw_test_group);
 	
 	init_drivers(); // Return to original state after tests.
-			//Driver tests may change these settings.
+			        //Driver tests may change these settings.
 
     io_card_main_thread();
-
-	while(1)
-    {
-	//usart_send_char('a');
-    }
-
 }
