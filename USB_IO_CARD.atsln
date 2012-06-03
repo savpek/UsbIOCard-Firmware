@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# AvrStudio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "USB_IO_CARD", "USB_IO_CARD.cproj", "{404D5276-5C48-44B1-A266-17ED2EE53157}"
 EndProject
 Global
