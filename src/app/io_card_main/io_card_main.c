@@ -3,12 +3,10 @@
 
 const char *error_msg_header = "ERROR: ";
 
-#define LOCATION_COMMAND 0
-
 static void error_invalid_command()
 {
     print_string(error_msg_header);
-    print_line("Invalid command! Commands available R/S/A.");
+    print_line("Invalid command!");
 }
 
 static void error_invalid_pin()
@@ -98,27 +96,33 @@ static void try_set_pin( char *read_buffer )
         error_invalid_pin();
 }
 
+#define COMMAND_TOKEN_IDX 0
 void io_card_main_thread() {
 
-    char read_buffer[15] = {0};
+    char read_buffer[20] = {0};
 
 	while(1)
 		{
-			read_line(read_buffer, 15);
+			read_line(read_buffer, 20);
             
-            switch (read_buffer[0])
+            if( is_token_equal_to(read_buffer, "SET", COMMAND_TOKEN_IDX) )
             {
-            case 'S':
-                try_set_pin(read_buffer);           
-            	break;
-            case 'R':
+                try_set_pin(read_buffer);
+                continue;
+            }            
+            
+            if( is_token_equal_to(read_buffer, "READ", COMMAND_TOKEN_IDX) )
+            {
                 try_read_pin(read_buffer);
-                break;
-            case 'A':
+                continue;
+            }            
+            
+            if( is_token_equal_to(read_buffer, "READ_ADC", COMMAND_TOKEN_IDX) )
+            {
                 try_get_pin_adc(read_buffer);
-                break;
-            default:
-                error_invalid_command();
-            }
+                continue;
+            }            
+            
+            error_invalid_command();
 		}
 }
