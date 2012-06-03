@@ -1,11 +1,3 @@
-/*
- * driver_config_usart.h
- *
- * Created: 21.3.2012 19:35:09
- *  Author: savpek
- */ 
-
-
 #ifndef DRIVER_CONFIG_USART_H_
 #define DRIVER_CONFIG_USART_H_
 

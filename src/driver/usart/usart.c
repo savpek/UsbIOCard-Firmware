@@ -1,4 +1,3 @@
-
 #include "framework.h"
 #include "usart/public/usart.h"
 

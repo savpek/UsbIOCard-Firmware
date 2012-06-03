@@ -1,10 +1,3 @@
-/*
- * spy_usart.c
- *
- * Created: 21.3.2012 21:21:53
- *  Author: savpek
- */
-
 #include "framework.h"
 #include "./usart/spy/spy_usart.h"
 

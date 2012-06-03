@@ -1,10 +1,3 @@
-/*! 
- *	@file D:\Dropbox\AVR32\USB_IO_CARD\USB_IO_CARD\src\driver\usart\utest_usart.c
- *  @author: savpek
- *
- *	@brief Test file for unity.
- */ 
-
 #include "framework.h"
 
 /*! @brief Set-up test group for: str

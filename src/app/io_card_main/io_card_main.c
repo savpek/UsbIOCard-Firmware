@@ -59,6 +59,7 @@ static jogwheel_map_t try_find_pin_from_list(jogwheel_map_t *list, char* read_bu
 
 static void try_get_pin_adc( char *read_buffer ) 
 {
+    //SAVPEK_TODO
     //jogwheel_map_t pin = try_find_pin_from_list( io_adc_maps);
 }
 

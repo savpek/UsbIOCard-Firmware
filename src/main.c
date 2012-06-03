@@ -15,10 +15,6 @@ void utest_group()
 //	RUN_TEST_GROUP(read);
 }
 
-void hw_test_group() 
-{
-}
-
 int main(void) {
 	init_drivers();
 	utest_main(&utest_group);

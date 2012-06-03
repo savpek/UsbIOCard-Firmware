@@ -1,11 +1,3 @@
-/*
- * init_drivers.c
- *
- * Created: 21.3.2012 19:34:24
- *  Author: savpek
- */
-
-
 #include "framework.h"
 
 #include "app/init_drivers/config/driver_config_usart.h"

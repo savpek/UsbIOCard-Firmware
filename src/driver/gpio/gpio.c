@@ -1,11 +1,3 @@
-/*
- * gpio.c
- *
- * Created: 22.3.2012 20:45:43
- *  Author: savpek
- */
-
-
 #include "framework.h"
 #include "gpio/public/gpio.h"
 
