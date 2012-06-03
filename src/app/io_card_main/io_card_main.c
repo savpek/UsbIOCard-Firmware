@@ -7,43 +7,52 @@ const char *error_msg_header = "ERROR: ";
 
 static void error_invalid_command()
 {
-    print_line(error_msg_header);
+    print_string(error_msg_header);
     print_line("Invalid command! Commands available R/S/A.");
 }
 
 static void error_invalid_pin()
 {
-    print_line(error_msg_header);
+    print_string(error_msg_header);
     print_line("Invalid pin!");
 }
 
 static void error_invalid_pin_state()
 {
-    print_line(error_msg_header);
+    print_string(error_msg_header);
     print_line("Invalid pin state!");
+}
+
+static statusc_t is_token_equal_to(char* input_buffer, char* test_this_string, uint8_t token_idx)
+{
+    uint8_t begin_idx = 0;
+    uint8_t end_idx = 0;
+
+    if( str_get_token_indexes(  input_buffer, 
+                                ' ', 
+                                token_idx,
+                                &begin_idx, 
+                                &end_idx)
+        != SC_SUCCESS)
+    {
+        ASSERT(0);
+        SC_FALSE;
+    }
+        
+    if( str_is_substring_of(input_buffer, test_this_string, begin_idx) == SC_TRUE) 
+    {
+        return SC_TRUE;
+    }
+    
+    return SC_FALSE;
 }
 
 #define PIN_STRING_TOKEN_IDX 1
 static jogwheel_map_t try_find_pin_from_list(jogwheel_map_t *list, char* read_buffer)
 {
-    uint8_t pin_name_begin_idx = 0;
-    uint8_t pin_name_end_idx = 0;
-    
-    if( str_get_token_indexes(  read_buffer, 
-                                ' ', 
-                                PIN_STRING_TOKEN_IDX, 
-                                &pin_name_begin_idx, 
-                                &pin_name_end_idx)
-        != SC_SUCCESS)
-        return;
-    
     for(uint8_t i = 0; list[i].terminal_name != NULL; i++)
     {
-        if( str_is_substring_of(
-                        read_buffer,
-                        list[i].terminal_name,
-                        pin_name_begin_idx) 
-            == SC_TRUE)
+        if(is_token_equal_to(read_buffer, list[i].terminal_name, PIN_STRING_TOKEN_IDX) == SC_TRUE)
             return list[i];
     }
 
@@ -63,27 +72,12 @@ static void try_read_pin( char *read_buffer )
 #define PIN_STATE_TOKEN_IDX 2
 void try_set_pin_state_based_on_input( char* read_buffer, jogwheel_map_t pin) 
 {
-    uint8_t pin_state_begin_idx = 0;
-    uint8_t pin_state_end_idx = 0;
-
-    if( str_get_token_indexes(  read_buffer, 
-                                ' ', 
-                                PIN_STATE_TOKEN_IDX,
-                                &pin_state_begin_idx, 
-                                &pin_state_end_idx)
-        != SC_SUCCESS)
-    {
-        ASSERT(0);
-        error_invalid_pin_state();
-        return;
-    }
-        
-    if( str_is_substring_of(read_buffer, "HIGH", pin_state_begin_idx) == SC_TRUE) 
+    if( is_token_equal_to(read_buffer, "HIGH", PIN_STATE_TOKEN_IDX) == SC_TRUE) 
     {
         gpio_set_high(pin.pin_number);
         return;
     }        
-    if( str_is_substring_of(read_buffer, "LOW", pin_state_begin_idx) == SC_TRUE) 
+    if( is_token_equal_to(read_buffer, "LOW", PIN_STATE_TOKEN_IDX) == SC_TRUE) 
     {
         gpio_set_low(pin.pin_number);
         return;
@@ -112,12 +106,6 @@ void io_card_main_thread() {
 		{
 			read_line(read_buffer, 15);
             
-            // Command examples:
-            // S 5.T0  H
-            // S 5.T0  L
-            // R 2.T0 
-            // R 2.T0
-            // A 1.T0         
             switch (read_buffer[0])
             {
             case 'S':
