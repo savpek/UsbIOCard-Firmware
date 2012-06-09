@@ -12,6 +12,6 @@ void init_drivers( ) {
 	gpio_init_pin(PIN_2T3, GPIO_OUTPUT, GPIO_LOW);
     
     // INPUTS WITH GALVANIC ISOLATION
-	gpio_init_pin(PIN_5T0, GPIO_INPUT, GPIO_PULL_UP);
-	gpio_init_pin(PIN_5T1, GPIO_INPUT, GPIO_PULL_UP);
+	gpio_init_pin(PIN_5T0, GPIO_INPUT, GPIO_NO_PULL_UP);
+	gpio_init_pin(PIN_5T1, GPIO_INPUT, GPIO_NO_PULL_UP);
 }

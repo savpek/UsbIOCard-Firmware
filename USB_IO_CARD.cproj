@@ -237,9 +237,6 @@
     <Compile Include="src\framework.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\lib\cmd_parser\public\cmd_parser.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -303,9 +300,6 @@
     <Folder Include="src\ext_lib\utest\private\" />
     <Folder Include="src\ext_lib\utest\public\" />
     <Folder Include="src\app" />
-    <Folder Include="src\lib" />
-    <Folder Include="src\lib\cmd_parser" />
-    <Folder Include="src\lib\cmd_parser\public" />
     <Folder Include="src\config" />
   </ItemGroup>
   <ItemGroup>

@@ -73,7 +73,7 @@ void try_get_pin_state_based_on_input( char * read_buffer, jogwheel_map_t pin )
 
 static void try_read_pin( char *read_buffer ) 
 {
-    jogwheel_map_t pin = try_find_pin_from_list( io_output_maps, read_buffer);
+    jogwheel_map_t pin = try_find_pin_from_list( io_input_maps, read_buffer);
     
     if(pin.terminal_name != NULL)
     {

@@ -9,6 +9,7 @@ typedef enum {
 	GPIO_HIGH = 1,
 	GPIO_LOW = 0,
 	GPIO_PULL_UP = 1,
+    GPIO_NO_PULL_UP = 0,
 } gpio_t;
 
 extern void (*gpio_set_high)( uint8_t pin_number);
