@@ -39,7 +39,6 @@ static statusc_t is_token_equal_to(char* input_buffer, char* test_this_string, u
                                 &end_idx)
         != SC_SUCCESS)
     {
-        ASSERT(0);
         SC_FALSE;
     }
         
