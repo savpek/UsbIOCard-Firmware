@@ -6,10 +6,10 @@ typedef struct {
 	const uint8_t pin_number;
 } jogwheel_map_t;
 
-extern jogwheel_map_t io_input_maps[];
+extern jogwheel_map_t io_input_map[];
 
-extern jogwheel_map_t io_output_maps[];
+extern jogwheel_map_t io_output_map[];
 
-extern jogwheel_map_t io_adc_maps[];
+extern jogwheel_map_t adc_map[];
 
 #endif /* JOGWHEEL_TERMINAL_MAPPING_H_ */

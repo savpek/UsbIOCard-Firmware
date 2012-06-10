@@ -6,7 +6,7 @@
 #define PB_OFFSET		8
 #define PC_OFFSET		16
 #define PD_OFFSET		24
-#define ADC_OFFSET      NOT DEFINED      
+#define ADC_OFFSET      24      
 
 // HIGH-V RELAY DRIVES
 #define PIN_2T0			PB_OFFSET+0
@@ -29,12 +29,16 @@
 #define PIN_5T11        PC_OFFSET+4
 
 // ADC INPUTS
-#define PIN_7T0_ADC0    ADC_OFFSET
-#define PIN_7T0_ADC1    ADC_OFFSET
+// Notice: These ports are only for adc,
+// so they doesn't need normal IO pins.
+#define ADC_7T0_0   6
+#define ADC_7T0_1   7
 
 #define ADC_PRESCALE	((1 << ADPS1)|(1 << ADPS0))	// 8
-#define ADC_REF_SOURCE	(1 << REFS0)				// AVCC
+#define ADC_REF_SOURCE	(1 << REFS0)    			// AVCC
 
+// These are not used in current solution since all
+// used adcs are in special pins (pins only have ADC functions).
 #define ADC_FIRST_PIN	PC_OFFSET+0
 #define ADC_LAST_PIN	PC_OFFSET+8
 

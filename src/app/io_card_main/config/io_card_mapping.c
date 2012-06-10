@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "io_card_main/config/io_card_mapping.h"
 
-jogwheel_map_t io_input_maps[] = {
+jogwheel_map_t io_input_map[] = {
 		{
 			.terminal_name = "5.T0",
 			.pin_number = PIN_5T0
@@ -32,7 +32,7 @@ jogwheel_map_t io_input_maps[] = {
         },
 	};
     
-jogwheel_map_t io_output_maps[] = 
+jogwheel_map_t io_output_map[] = 
 {
         {
             .terminal_name = "2.T0",
@@ -56,11 +56,15 @@ jogwheel_map_t io_output_maps[] =
         },
     };
         
-jogwheel_map_t io_adc_maps[] =
+jogwheel_map_t adc_map[] =
 {
         {
-            .terminal_name = NULL,
-            .pin_number = NULL,
+            .terminal_name = "7.T0.ADC0",
+            .pin_number = ADC_7T0_0,
+        },
+        {
+            .terminal_name = "7.T0.ADC1",
+            .pin_number = ADC_7T0_1,
         },
 };
     

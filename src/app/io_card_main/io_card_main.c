@@ -15,6 +15,12 @@ static void error_invalid_pin()
     print_line("Invalid pin!");
 }
 
+void error_invalid_adc() 
+{
+    print_string(error_msg_header);
+    print_line("Invalid adc channel!");
+}
+
 static void error_invalid_pin_state()
 {
     print_string(error_msg_header);
@@ -57,10 +63,17 @@ static jogwheel_map_t try_find_pin_from_list(jogwheel_map_t *list, char* read_bu
     return;
 }
 
+
 static void try_get_pin_adc( char *read_buffer ) 
 {
-    //SAVPEK_TODO
-    //jogwheel_map_t pin = try_find_pin_from_list( io_adc_maps);
+    jogwheel_map_t adc_channel = try_find_pin_from_list( adc_map, read_buffer);
+    
+    if(adc_channel.terminal_name != NULL)
+    {
+        gpio_get_adc_value(adc_channel.pin_number);
+    }
+    else
+        error_invalid_adc();    
 }
 
 void try_get_pin_state_based_on_input( char * read_buffer, jogwheel_map_t pin ) 
@@ -73,7 +86,7 @@ void try_get_pin_state_based_on_input( char * read_buffer, jogwheel_map_t pin )
 
 static void try_read_pin( char *read_buffer ) 
 {
-    jogwheel_map_t pin = try_find_pin_from_list( io_input_maps, read_buffer);
+    jogwheel_map_t pin = try_find_pin_from_list( io_input_map, read_buffer);
     
     if(pin.terminal_name != NULL)
     {
@@ -102,7 +115,7 @@ void try_set_pin_state_based_on_input( char* read_buffer, jogwheel_map_t pin)
 
 static void try_set_pin( char *read_buffer ) 
 {
-    jogwheel_map_t pin = try_find_pin_from_list( io_output_maps, read_buffer);
+    jogwheel_map_t pin = try_find_pin_from_list( io_output_map, read_buffer);
     
     if(pin.terminal_name != NULL)
     {
