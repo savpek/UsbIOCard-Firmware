@@ -134,7 +134,7 @@ void io_card_main_thread() {
 
 	while(1)
 		{
-			read_line(read_buffer, 20);
+            read_line(read_buffer, 20);
             
             if( is_token_equal_to(read_buffer, "SET", COMMAND_TOKEN_IDX) )
             {
