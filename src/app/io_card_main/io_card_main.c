@@ -67,13 +67,15 @@ static jogwheel_map_t try_find_pin_from_list(jogwheel_map_t *list, char* read_bu
 static void try_get_pin_adc( char *read_buffer ) 
 {
     jogwheel_map_t adc_channel = try_find_pin_from_list( adc_map, read_buffer);
+    uint8_t adc_value = 0;
     
     if(adc_channel.terminal_name != NULL)
     {
-        gpio_get_adc_value(adc_channel.pin_number);
+        adc_value = gpio_get_adc_value(adc_channel.pin_number);
+        print_dec((uint32_t)adc_value);
     }
     else
-        error_invalid_adc();    
+        error_invalid_adc();
 }
 
 void try_get_pin_state_based_on_input( char * read_buffer, jogwheel_map_t pin ) 
@@ -146,7 +148,7 @@ void io_card_main_thread() {
                 continue;
             }            
             
-            if( is_token_equal_to(read_buffer, "READ_ADC", COMMAND_TOKEN_IDX) )
+            if( is_token_equal_to(read_buffer, "ADC", COMMAND_TOKEN_IDX) )
             {
                 try_get_pin_adc(read_buffer);
                 continue;

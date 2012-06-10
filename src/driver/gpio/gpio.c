@@ -120,8 +120,18 @@ statusc_t gpio_is_pin_adc( uint8_t pin_number)
 	return SC_FALSE;
 }
 
+void select_adc_channel_and_wait_until_done( uint8_t pin_number ) 
+{
+    ADMUX &= 0xF0;
+    ADMUX |= (pin_number-ADC_OFFSET);
+    
+    // Wait until conversion is done.
+    while( ADCSRA & (1<<ADIF) == 0);   
+}
+
 uint8_t gpio_get_adc_value( uint8_t pin_number )
 {
+    select_adc_channel_and_wait_until_done(pin_number);
 	return ADCH;
 }
 

@@ -60,11 +60,15 @@ jogwheel_map_t adc_map[] =
 {
         {
             .terminal_name = "7.T0.ADC0",
-            .pin_number = ADC_7T0_0,
+            .pin_number = PIN_7T0_ADC0,
         },
         {
             .terminal_name = "7.T0.ADC1",
-            .pin_number = ADC_7T0_1,
+            .pin_number = PIN_7T0_ADC1,
+        },
+        {
+            .terminal_name = NULL,
+            .pin_number = NULL,
         },
 };
     

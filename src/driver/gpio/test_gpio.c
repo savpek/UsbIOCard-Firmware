@@ -123,10 +123,22 @@ TEST(gpio_adc, adc_used_flags_are_set_and_readed_correctly)
 	TEST_ASSERT( gpio_is_pin_adc(FIRST_ADC_PIN+1) == SC_TRUE);
 }
 
+statusc_t is_correct_adc_selected( uint8_t adc_pin ) 
+{
+    return SC_FALSE;
+}
+
+TEST(gpio_adc, adc_channel_is_selected_correcly)
+{
+    gpio_get_adc_value(FIRST_ADC_PIN);
+    TEST_ASSERT( is_correct_adc_selected(FIRST_ADC_PIN) == SC_TRUE);
+}
+
 TEST_GROUP_RUNNER(gpio_adc) {
 	RUN_TEST_CASE(gpio_adc, init_adc_registers);
 	RUN_TEST_CASE(gpio_adc, io_set_correctly_as_input);
 	RUN_TEST_CASE(gpio_adc, adc_used_flags_are_set_and_readed_correctly);
+    RUN_TEST_CASE(gpio_adc, adc_channel_is_selected_correcly);
 }
 
 /* PWM GROUP */
