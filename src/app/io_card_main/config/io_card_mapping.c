@@ -27,6 +27,30 @@ jogwheel_map_t io_input_map[] = {
             .pin_number = PIN_5T5,
         },
         {
+            .terminal_name = "5.T6",
+            .pin_number = PIN_5T6,
+        },
+        {
+            .terminal_name = "5.T7",
+            .pin_number = PIN_5T7,
+        },
+        {
+            .terminal_name = "5.T8",
+            .pin_number = PIN_5T8,
+        },
+        {
+            .terminal_name = "5.T9",
+            .pin_number = PIN_5T9,
+        },
+        {
+            .terminal_name = "5.T10",
+            .pin_number = PIN_5T10,
+        },
+        {
+            .terminal_name = "5.T11",
+            .pin_number = PIN_5T11,
+        },
+        {
             .terminal_name = NULL,
             .pin_number = NULL,
         },
