@@ -72,6 +72,7 @@ static void try_get_pin_adc( char *read_buffer )
     {
         adc_value = gpio_get_adc_value(adc_channel.pin_number);
         print_dec((uint32_t)adc_value);
+        print_line("");
     }
     else
         error_invalid_adc();

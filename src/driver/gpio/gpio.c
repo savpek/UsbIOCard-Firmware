@@ -100,14 +100,12 @@ void gpio_init_pin_as_adc( uint8_t pin_number)
 	ADMUX = ADC_REF_SOURCE;
 	ADMUX |= (1<<ADLAR);	// Left align result registers.
 	ADCSRA |= (1<<ADEN);	// Enable.
-	ADCSRA |= (1<<ADSC);	// Start conversion.
 
 	gpio_init_pin(pin_number, GPIO_INPUT, NULL);
 
 	uint8_t current_adc = pin_number - ADC_FIRST_PIN;
 
-	ASSERT( ( current_adc >= 0 &&
-			  current_adc <= ADC_LAST_PIN-ADC_FIRST_PIN ) );
+	ASSERT( current_adc <= ADC_LAST_PIN-ADC_FIRST_PIN );
 
 	pin_used_as_adc_flags |= (1<<current_adc);
 }
@@ -122,11 +120,11 @@ statusc_t gpio_is_pin_adc( uint8_t pin_number)
 
 void select_adc_channel_and_wait_until_done( uint8_t pin_number ) 
 {
-    ADMUX &= 0xF0;
-    ADMUX |= (pin_number-ADC_OFFSET);
-    
-    // Wait until conversion is done.
-    while( ADCSRA & (1<<ADIF) == 0);   
+    ADMUX &= 0xF0;                     // Clear lower bits of ADC multiplexer.
+    ADMUX |= pin_number-ADC_OFFSET;    // Set new channel to last 4 bits.
+    ADCSRA |= (1<<ADSC);               // Start conversion
+    while( (ADCSRA & (1<<ADIF)) == 0); // ADIF means conversion ready.
+    ADCSRA |= (1<<ADIF);               // Clear ADIF. 
 }
 
 uint8_t gpio_get_adc_value( uint8_t pin_number )

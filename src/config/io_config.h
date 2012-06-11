@@ -35,7 +35,7 @@
 #define PIN_7T0_ADC1   ADC_OFFSET+7
 
 #define ADC_PRESCALE	((1 << ADPS1)|(1 << ADPS0))	// 8
-#define ADC_REF_SOURCE	(1 << REFS0)    			// AVCC
+#define ADC_REF_SOURCE	(0)    			            // VREF
 
 // These are not used in current solution since all
 // used adcs are in special pins (pins only have ADC functions).
