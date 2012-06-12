@@ -1,7 +1,6 @@
 #include "framework.h"
 
-#include "app/init_drivers/config/driver_config_usart.h"
-
+#include "config/driver_config_usart.h"
 void init_drivers( ) {
 	usart_init(USART_SET_THIS_BAUDRATE);
 	

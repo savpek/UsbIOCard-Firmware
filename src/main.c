@@ -6,7 +6,7 @@
 
 void utest_group() 
 {
-//	RUN_TEST_GROUP(str);
+	RUN_TEST_GROUP(str);
 //	RUN_TEST_GROUP(gpio_io_functions);
 //	RUN_TEST_GROUP(gpio_adc);
 //	RUN_TEST_GROUP(ioapi);

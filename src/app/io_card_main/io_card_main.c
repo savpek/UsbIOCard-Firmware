@@ -54,8 +54,7 @@ static statusc_t is_token_equal_to(char* input_buffer, char* test_this_string, u
     }
         
     // We must also check that sting also ends, otherwise 5.T1 and 5.T10 mathces each other...
-    if( str_is_substring_of(input_buffer, test_this_string, begin_idx) == SC_TRUE
-        && character_is_null_or_space(test_this_string, end_idx+1) == SC_TRUE) 
+    if( str_is_word_in_string(input_buffer, test_this_string, begin_idx, " ") == SC_TRUE)
     {
         return SC_TRUE;
     }
