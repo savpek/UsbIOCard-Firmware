@@ -27,6 +27,17 @@ static void error_invalid_pin_state()
     print_line("Invalid pin state!");
 }
 
+statusc_t character_is_null_or_space( char* input_buffer, uint8_t char_idx ) 
+{
+	switch(input_buffer[char_idx]) {
+        case ' ':
+        case '\0':
+            return SC_TRUE;
+        default:
+            return SC_FALSE;
+    }
+}
+
 static statusc_t is_token_equal_to(char* input_buffer, char* test_this_string, uint8_t token_idx)
 {
     uint8_t begin_idx = 0;
@@ -42,7 +53,9 @@ static statusc_t is_token_equal_to(char* input_buffer, char* test_this_string, u
         SC_FALSE;
     }
         
-    if( str_is_substring_of(input_buffer, test_this_string, begin_idx) == SC_TRUE) 
+    // We must also check that sting also ends, otherwise 5.T1 and 5.T10 mathces each other...
+    if( str_is_substring_of(input_buffer, test_this_string, begin_idx) == SC_TRUE
+        && character_is_null_or_space(test_this_string, end_idx+1) == SC_TRUE) 
     {
         return SC_TRUE;
     }
