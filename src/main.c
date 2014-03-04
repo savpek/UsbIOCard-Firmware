@@ -6,7 +6,7 @@
 
 void utest_group() 
 {
-	RUN_TEST_GROUP(str);
+//	RUN_TEST_GROUP(str);
 //	RUN_TEST_GROUP(gpio_io_functions);
 //	RUN_TEST_GROUP(gpio_adc);
 //	RUN_TEST_GROUP(ioapi);
@@ -16,8 +16,12 @@ void utest_group()
 }
 
 int main(void) {
-	init_drivers();
-	utest_main(&utest_group);
+	#if WDENABLED
+		wdt_enable(WDTO_8S);
+	#endif
+	
+	//init_drivers();
+	//utest_main(&utest_group);
 	
 	init_drivers(); // Return to original state after tests.
 			        //Driver tests may change these settings.

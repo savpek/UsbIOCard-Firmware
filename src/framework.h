@@ -1,6 +1,8 @@
 /* Common libraries */
 #include <avr/io.h>
+#include <avr/wdt.h>
 #include "config/io_config.h"
+#include "config/app_ini.h"
 
 /* Shared status codes and asserts. */
 #include "statusc/public/statusc.h"
