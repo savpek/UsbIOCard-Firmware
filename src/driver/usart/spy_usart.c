@@ -39,6 +39,7 @@ statusc_t spy_usart_try_read_char(char* a)
 	{
 		ASSERT( SC_FAILURE);
 	}
+	return SC_FAILURE;
 }
 
 void spy_usart_put_to_receiver_stream(char* source)

@@ -6,13 +6,13 @@
 #include "statusc/public/statusc.h"
 
 /* Unit testing framework. */
-#include "./utest/public/utest.h"
+#include "utest/public/utest.h"
 
 /* Basic output stream */
 #include "usart/public/usart.h"
 
 /* Common string paring */
-#include "./str/public/str.h"
+#include "str/public/str.h"
 
 /* SETTINGS ETC... */
 #ifndef FRAMEWORK_H_

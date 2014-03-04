@@ -164,7 +164,13 @@ void io_card_main_thread() {
             {
                 try_get_pin_adc(read_buffer);
                 continue;
-            }            
+            }
+			
+			if( is_token_equal_to(read_buffer, "WDRESET", COMMAND_TOKEN_IDX) )
+			{
+				print_line("OK");
+				continue;
+			}      
             
             error_invalid_command();
 		}
