@@ -74,7 +74,6 @@ static jogwheel_map_t try_find_pin_from_list(jogwheel_map_t *list, char* read_bu
     return;
 }
 
-
 static void try_get_pin_adc( char *read_buffer ) 
 {
     jogwheel_map_t adc_channel = try_find_pin_from_list( adc_map, read_buffer);
@@ -151,18 +150,21 @@ void io_card_main_thread() {
             if( is_token_equal_to(read_buffer, "SET", COMMAND_TOKEN_IDX) )
             {
                 try_set_pin(read_buffer);
+				wdt_reset();
                 continue;
             }            
             
             if( is_token_equal_to(read_buffer, "READ", COMMAND_TOKEN_IDX) )
             {
                 try_read_pin(read_buffer);
+				wdt_reset();
                 continue;
             }            
             
             if( is_token_equal_to(read_buffer, "ADC", COMMAND_TOKEN_IDX) )
             {
                 try_get_pin_adc(read_buffer);
+				wdt_reset();
                 continue;
             }
 			
