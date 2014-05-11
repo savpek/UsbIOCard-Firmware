@@ -168,13 +168,13 @@ void io_card_main_thread() {
                 continue;
             }
 			
-			if( is_token_equal_to(read_buffer, "WDRESET", COMMAND_TOKEN_IDX) )
-			{
-				print_line("OK");
-				wdt_reset();
-				continue;
-			}
-            
+	    if( is_token_equal_to(read_buffer, "WDRESET", COMMAND_TOKEN_IDX) )
+	    {
+		print_line("OK");
+		wdt_reset();
+		continue;
+	    }
+               
             error_invalid_command();
 		}
 }
